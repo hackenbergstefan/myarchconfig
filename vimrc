@@ -2,7 +2,7 @@
 "
 " Written by Maximilian-Huber.de
 "
-" Last modified: Mo Dez 23, 2013  09:12
+" Last modified: Mo Jan 06, 2014  02:49
 "
 " !!!
 "       this config will automatically download Vundle from git, and then it
@@ -220,11 +220,11 @@ if has("gui_running")
   set guioptions+=c
 
   let g:indent_guides_auto_colors = 0
-  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=black ctermbg=4
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=black ctermbg=none
 else
   " no gui
   set t_Co=256
-  set background=dark
+  set background=light
 endif
 
 if filereadable(expand("$VIMRUNTIME/colors/mustang.vim"))
@@ -233,6 +233,7 @@ elseif filereadable(expand("$HOME/.vim/colors/mustang.vim"))
   colorscheme mustang
 else
   colorscheme default
+  let g:CSApprox_hook_post = 'hi Normal ctermbg=none'
 endif
 
 " ====  hilight to long lines  ======================================{{{
@@ -487,31 +488,33 @@ function! SetLaTeXFile()
   set iskeyword+=_ " same with _
 
   "setlocal noautoindent
-  setlocal nocindent
-  setlocal nosmartindent
+  "setlocal nocindent
+  "setlocal nosmartindent
   setlocal indentexpr=
 
   setlocal autoindent
 
   "" Conceal
   "colorscheme topfunky-light
-  "set cole=2
-  "let g:tex_conceal= 'adgm'
-  "hi Conceal guibg=White guifg=DarkMagenta
+  colorscheme default
+  hi Normal ctermbg=NONE
+  set cole=2
+  let g:tex_conceal= 'adgm'
+  let g:CSApprox_hook_post=g:CSApprox_hook_post . ' | hi Conceal guibg=none guifg=DarkMagenta ctermfg=black ctermbg=none'
 
   setlocal spell
   set spell spelllang=de_de
   set spellfile=~/.vim/spell/spellfile.add
 
-  highlight clear SpellBad
-  highlight SpellBad term=standout ctermfg=1
-  highlight SpellBad term=underline cterm=underline
-  highlight clear SpellCap
-  highlight SpellCap term=underline cterm=underline
-  highlight clear SpellRare
-  highlight SpellRare term=underline cterm=underline
-  highlight clear SpellLocal
-  highlight SpellLocal term=underline cterm=underline
+  "highlight clear SpellBad
+  "highlight SpellBad term=standout ctermfg=1
+  "highlight SpellBad term=underline cterm=underline
+  "highlight clear SpellCap
+  "highlight SpellCap term=underline cterm=underline
+  "highlight clear SpellRare
+  "highlight SpellRare term=underline cterm=underline
+  "highlight clear SpellLocal
+  "highlight SpellLocal term=underline cterm=underline
 endfunction
 
 function! SetCssFile()
@@ -707,7 +710,7 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 
 " For snippet_complete marker.
 if has('conceal')
-  set conceallevel=2 concealcursor=i
+  "set conceallevel=2 concealcursor=i
 endif
 
 " ===================================================================}}}
@@ -774,6 +777,7 @@ if isdirectory(expand('~').'/.vim/bundle/vundle')
   Bundle 'vim-less'
   Bundle 'L9'
   Bundle 'tsaleh/vim-align.git'
+  Bundle 'CSApprox'
 
   "testing
   "Bundle 'LatexParFormat'

@@ -28,5 +28,9 @@ xbindkeys
 ) &
 
 
+#virtualbox
+/usr/bin/VBoxClient-all
+
+
 exec dbus-launch xmonad
 

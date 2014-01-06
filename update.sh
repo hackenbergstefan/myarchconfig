@@ -15,6 +15,7 @@ cp -vu ~/.zshrc                ~/myarchconfig/zshrc
 cp -vu ~/.zshrc.local          ~/myarchconfig/zshrc.local
 cp -vu ~/bin/disp-controll     ~/myarchconfig/bin/
 cp -vu ~/bin/myfsize.sh        ~/myarchconfig/bin/
+cp -vu ~/.latexmkrc            ~/myarchconfig
 
 echo
 echo "git"

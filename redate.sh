@@ -19,4 +19,4 @@ cp -v  ~/myarchconfig/xmonad.hs                  ~/.xmonad/xmonad.hs
 cp -v  ~/myarchconfig/zshrc.local                ~/.zshrc.local          
 cp -v  ~/myarchconfig/bin/disp-controll          ~/bin/disp-controll     
 cp -v  ~/myarchconfig/bin/myfsize.sh             ~/bin/myfsize.sh        
-
+cp -v  ~/myarchconfig/latexmkrc                  ~/.latexmkrc
