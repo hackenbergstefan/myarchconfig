@@ -2,7 +2,7 @@
 "
 " Written by Maximilian-Huber.de
 "
-" Last modified: Mo Jan 06, 2014  02:49
+" Last modified: Mi Jan 08, 2014  10:29
 "
 " !!!
 "       this config will automatically download Vundle from git, and then it
@@ -119,6 +119,7 @@ set wildmode=list:longest
 " These are files we are not likely to want to edit or read.
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 
+
 " ====  Scrolling  =================================================={{{
 
 set scrolljump=5
@@ -220,20 +221,22 @@ if has("gui_running")
   set guioptions+=c
 
   let g:indent_guides_auto_colors = 0
-  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=black ctermbg=none
+  "autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=black ctermbg=none
 else
   " no gui
   set t_Co=256
   set background=light
 endif
 
-if filereadable(expand("$VIMRUNTIME/colors/mustang.vim"))
-  colorscheme mustang
-elseif filereadable(expand("$HOME/.vim/colors/mustang.vim"))
-  colorscheme mustang
+if filereadable(expand("$VIMRUNTIME/bundle/vim-colorschemes/colors/lucius.vim"))
+  "let g:lucius_style='light'
+  colorscheme lucius
+elseif filereadable(expand("$HOME/.vim/bundle/vim-colorschemes/colors/lucius.vim"))
+  "let g:lucius_style='light'
+  colorscheme lucius
 else
   colorscheme default
-  let g:CSApprox_hook_post = 'hi Normal ctermbg=none'
+  "let g:CSApprox_hook_post = 'hi Normal ctermbg=none'
 endif
 
 " ====  hilight to long lines  ======================================{{{
@@ -483,6 +486,13 @@ function! SetLaTeXFile()
   "map \gq ?^$\\|^\s*\(\\begin\\|\\end\\|\\label\)?1<CR>gq//-1<CR>
   "omap lp ?^$\\|^\s*\(\\begin\\|\\end\\|\\label\)?1<CR>//-1<CR>.<CR>
 
+  let b:delimitMate_quotes = ""
+  
+
+  inoremap <expr>" getline('.')[col(".")-2] =~ "\\s" ? "\"`\"\'<left><left>" : "\"'"
+  inoremap <expr>[ getline('.')[col(".")-2] =~ "\\" ? "[<C-v>u005c]<left><left>" : "[" 
+  inoremap <expr>{ getline('.')[col(".")-2] =~ "\\" ? "{<C-v>u005c}<left><left>" : "{" 
+
   set iskeyword+=: " type /ref{fig: and prec <C-n> to autocomplete references
   set iskeyword+=- " same with -
   set iskeyword+=_ " same with _
@@ -495,14 +505,11 @@ function! SetLaTeXFile()
   setlocal autoindent
 
   "" Conceal
-  "colorscheme topfunky-light
-  colorscheme default
-  hi Normal ctermbg=NONE
   set cole=2
   let g:tex_conceal= 'adgm'
-  let g:CSApprox_hook_post=g:CSApprox_hook_post . ' | hi Conceal guibg=none guifg=DarkMagenta ctermfg=black ctermbg=none'
+  "let g:CSApprox_hook_post=g:CSApprox_hook_post . ' | hi Conceal guibg=none guifg=DarkMagenta ctermfg=black ctermbg=none'
 
-  setlocal spell
+  setlocal nospell
   set spell spelllang=de_de
   set spellfile=~/.vim/spell/spellfile.add
 
@@ -777,7 +784,7 @@ if isdirectory(expand('~').'/.vim/bundle/vundle')
   Bundle 'vim-less'
   Bundle 'L9'
   Bundle 'tsaleh/vim-align.git'
-  Bundle 'CSApprox'
+  "Bundle 'CSApprox'
 
   "testing
   "Bundle 'LatexParFormat'

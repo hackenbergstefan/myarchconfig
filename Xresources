@@ -9,15 +9,15 @@ URxvt.urgentOnBell: true
 URxvt*transparent: true
 ! shading - 0 to 99 darkens, 101 to 200 lightens.
 !   Dont use with tintColor; just use a darker or lighter color instead.
-URxvt*shading: 185
+URxvt*shading: 20
 
 URxvt.depth: 32
 !URxvt.background: rgba:1111/1111/1111/dddd
 URxvt*saveLines: 12000
 URxvt*font: xft:Monofur:pixelsize=14:antialias=true:hinting=true
 URxvt*boldFont: xft:Monofur:bold:pixelsize=13:antialias=true:hinting=true
-URxvt*foreground: black
-URxvt*background: white
+URxvt*foreground: #dadada
+URxvt*background: #1c1c1c
 !*color0:  #2E3436
 !*color1:  #a40000
 !*color2:  #4E9A06
@@ -52,7 +52,7 @@ URxvt*background: white
 *color9: #cb4b16
  
 !! green dark/light
-*color2: #eeeeee
+*color2: #afd27a
 *color10: #586e75
  
 !! yellow dark/light
