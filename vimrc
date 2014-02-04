@@ -2,7 +2,7 @@
 "
 " Written by Maximilian-Huber.de
 "
-" Last modified: Mi Jan 08, 2014  10:29
+" Last modified: Fr Jan 24, 2014  08:12
 "
 " !!!
 "       this config will automatically download Vundle from git, and then it
@@ -112,7 +112,7 @@ set showbreak=\ \ \ ↳
 
 set wildmenu "Kommando Zeilen Vervollständigung
 "set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png
-set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*.aux,*.bbl,*.blg,*.fdb_latexmk,*.fls,*.idx,*.ilg,*.ind,*.nlo,*.nls,*.toc,*.hi
+set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*.aux,*.bbl,*.blg,*.fdb_latexmk,*.fls,*.idx,*.ilg,*.ind,*.nlo,*.toc,*.hi
 set wildmode=list:longest
 
 " Suffixes that get lower priority when doing tab completion for filenames.
@@ -488,6 +488,7 @@ function! SetLaTeXFile()
 
   let b:delimitMate_quotes = ""
   
+  "let g:syntastic_auto_loc_list=1
 
   inoremap <expr>" getline('.')[col(".")-2] =~ "\\s" ? "\"`\"\'<left><left>" : "\"'"
   inoremap <expr>[ getline('.')[col(".")-2] =~ "\\" ? "[<C-v>u005c]<left><left>" : "[" 
@@ -760,6 +761,7 @@ if isdirectory(expand('~').'/.vim/bundle/vundle')
   Bundle "tomtom/tlib_vim"
   Bundle "garbas/vim-snipmate"
   Bundle "honza/vim-snippets"
+  Bundle "git://github.com/scrooloose/syntastic.git"
   "manage files
   Bundle 'LustyJuggler'
   Bundle 'The-NERD-tree'
