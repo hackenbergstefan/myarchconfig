@@ -22,15 +22,18 @@ setxkbmap -layout de
 #bind keys
 xbindkeys
 
+exec urxvtd -q -f -o &
 
 (
-	feh --bg-fill "/home/stefan/arch-background2.jpg"
+  xcalib -d : 0 /home/stefan/.icc/x240.icc
+	feh --bg-fill "/home/stefan/arch-background.jpg"
 ) &
 
 
-#virtualbox
-/usr/bin/VBoxClient-all
+amixer -q set Master off &
+xbacklight = 50 &
 
+([[ -f ~/bin/mailrun.sh ]] && ~/bin/mailrun.sh) &
 
 exec dbus-launch xmonad
 

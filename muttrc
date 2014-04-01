@@ -1,0 +1,104 @@
+##############################################################################
+# Accounts
+##############################################################################
+set mbox_type=Maildir
+
+#Wenn man die Mailbox wechselt, sollen die Server-Daten aktualisiert werden
+folder-hook ~/Mail/t-online/* 'source ~/.mutt/t-online'
+
+#optional, damit kann man in Mutt <Escape> 1 bzw. 2 drücken, um zwischen den Mailboxen zu wechseln
+#macro index <esc>1 "<change-folder>~/Mail/by-hubi/INBOX<enter>"
+#macro index <esc>2 "<change-folder>~/Mail/alfa/INBOX<enter>"
+#macro pager <esc>1 "<change-folder>~/Mail/by-hubi/INBOX<enter>"
+#macro pager <esc>2 "<change-folder>~/Mail/alfa/INBOX<enter>"
+
+# IMAP: offlineimap
+set folder = "~/Mail"
+source ~/.mutt/t-online
+source ~/.mutt/mailboxes
+#set spoolfile = "+t-online/INBOX"
+#set record = "+t-online/INBOX.Sent"
+#set postponed = "+t-online/INBOX.Drafts"
+#mailboxes = +alfa/INBOX +alfa/INBOX.Gesendet +alfa/INBOX.Gesendet-2 \
+    #+by-hubi/INBOX +by-hubi/Sent +by-hubi/Drafts \
+    #+by-hubi/Archive.Uni +by-hubi/Archive.Billing +by-hubi/Archive.Private \
+    #+by-hubi/Archive.Sonstiges +by-hubi/Archive.Web +by-hubi/Archive.Job \
+    #+by-hubi/Archive.Ayleen \
+#mailboxes = +t-online/INBOX +t-online/INBOX.Uni +t-online/INBOX.Sent
+
+##############################################################################
+# General
+##############################################################################
+set query_command="abook --mutt-query '%s'"
+
+#set sendmail="/usr/bin/msmtp"               #Pfad zu dem Programm, das die Mails verschicken soll
+set envelope_from=yes                       #übergibt msmtp automatisch den richtigen Absender
+set edit_hdrs                               #Empfänger u.a. auch im Editor bearbeiten
+set signature ="~/.mutt/signatur"           #Datei, die den Text der Signatur enthält
+set attribution="%f schrieb am %d:"         #Zitatkennzeichnung in unserer Muttersprache :)
+
+set sort=threads                            #E-Mails werden nach Gesprächsverlauf und nach Datum sortiert
+set sort_aux=date-sent
+#set sort=date                              #würde alternativ zuerst nach Datum sortieren
+
+set date_format="%a, %d. %b %H:%M"          #gibt an, wie das Datum formatiert wird
+set index_format="%4C %Z %D %-22.22F (%?l?%4l&%4c?) %s"	#Format der Mail-Übersicht
+set folder_format="%2C %8s %d %t %N %f"     #Format des Datei-Browsers
+set pager_index_lines=10                    #Anzahl der angezeigten Mails in der Übersicht
+set editor="vim +8"                         #Editor, der zum Verfassen der E-Mail benutzt wird, hier Vim beginnend auf Zeile 8
+set beep_new                                # bell on new mails
+set header_cache=$HOME/.mail/.hcache
+
+set timeout=15
+set mail_check=60                           # aktualisiere jede minute (offlineimap)
+
+set sleep_time = 0                          #Speed up folders switch
+
+unset allow_8bit                            #u.U. verbesserte Darstellung von Umlauten
+set charset="utf-8"
+set locale=`echo "${LC_ALL:-${LC_TIME:-${LANG}}}"`
+set send_charset="us-ascii:iso-8859-15:utf-8"
+
+auto_view text/html
+alternative_order text/plain text/html
+
+set index_format="%2C | %Z [%d] %-30.30F %X (%-4.4c) %s"
+
+##############################################################################
+# Keybindings
+##############################################################################
+macro index,pager A "<pipe-message>abook --add-email-quiet<return>" "add sender to abook"
+#drücke t, um in den Ordnern des Postfaches zu navigieren
+macro index t "c=<tab><tab><tab>"
+
+bind index "^" imap-fetch-mail
+bind index gg first-entry
+bind index G last-entry
+
+bind index,pager <down>   sidebar-next
+bind index,pager <up>     sidebar-prev
+bind index,pager <right>  sidebar-open
+##############################################################################
+# Colors
+##############################################################################
+source ~/.mutt/colors.solarized-light
+
+# overwrite some values, for mor contrast in solarized-light
+color normal        white        color234
+color normal        white        color234
+color status        white        color235
+#color index         white        color234 "*"
+
+##############################################################################
+#alternativ
+#source ~/.mutt/zenburn.theme.rc
+
+##############################################################################
+# Display
+##############################################################################
+
+# Aussehen der Sidebar. Funktioniert nur mit mutt-pached
+set sidebar_delim   = '  │'
+set sidebar_visible = yes
+set sidebar_width   = 24 
+#color sidebar_new color221 color233

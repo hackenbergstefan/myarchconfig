@@ -1,0 +1,48 @@
+[general]
+metadata = ~/.offlineimap
+# List of accounts to be synced, separated by a comma.
+accounts = t-online
+maxsyncaccounts = 3 
+socktimeout = 60
+#ui = quiet
+
+[mbnames]
+enabled = yes
+filename = ~/.mutt/mailboxes
+header = "mailboxes "
+peritem = "+%(accountname)s/%(foldername)s"
+sep = " "
+footer = "\n"
+
+###############################################################################
+[Account t-online]
+# Identifier for the local repository; e.g. the maildir to be synced via IMAP.
+localrepository = t-online-local
+# Identifier for the remote repository; i.e. the actual IMAP, usually non-local.
+remoterepository = t-online-remote
+# Status cache. Default is plain, which eventually becomes huge and slow.
+status_backend = sqlite
+
+# Minutes between syncs
+autorefresh = 5
+# Number of quick-syncs between autorefreshes. Quick-syncs do not update if the
+# only changes were to IMAP flags
+quick = 10
+
+[Repository t-online-local]
+# Currently, offlineimap only supports maildir and IMAP for local repositories.
+type = Maildir
+# Where should the mail be placed?
+localfolders = ~/Mail/t-online
+
+[Repository t-online-remote]
+# Remote repos can be IMAP or Gmail, the latter being a preconfigured IMAP.
+type = IMAP
+remotehost = secureimap.t-online.de
+remoteuser = hackenberg.stefan@t-online.de
+remotepassfile = ~/.keys/imap-t-online.key
+ssl = yes
+cert_fingerprint = db69d867e9bc247d089f5cf192f9e52f52076107
+keepalive = 60
+holdconnectionopen = yes
+

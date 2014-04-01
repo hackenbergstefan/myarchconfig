@@ -2,7 +2,7 @@
 "
 " Written by Maximilian-Huber.de
 "
-" Last modified: Fr Jan 24, 2014  08:12
+" Last modified: So Mär 23, 2014  10:45
 "
 " !!!
 "       this config will automatically download Vundle from git, and then it
@@ -119,6 +119,9 @@ set wildmode=list:longest
 " These are files we are not likely to want to edit or read.
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 
+" Set standard latex filetype to tex instead of plaintex
+let g:tex_flavor = "latex"
+
 
 " ====  Scrolling  =================================================={{{
 
@@ -231,9 +234,11 @@ endif
 if filereadable(expand("$VIMRUNTIME/bundle/vim-colorschemes/colors/lucius.vim"))
   "let g:lucius_style='light'
   colorscheme lucius
+  hi Normal ctermbg=none
 elseif filereadable(expand("$HOME/.vim/bundle/vim-colorschemes/colors/lucius.vim"))
   "let g:lucius_style='light'
   colorscheme lucius
+  hi Normal ctermbg=none
 else
   colorscheme default
   "let g:CSApprox_hook_post = 'hi Normal ctermbg=none'
@@ -514,15 +519,17 @@ function! SetLaTeXFile()
   set spell spelllang=de_de
   set spellfile=~/.vim/spell/spellfile.add
 
-  "highlight clear SpellBad
+  highlight clear SpellBad
   "highlight SpellBad term=standout ctermfg=1
-  "highlight SpellBad term=underline cterm=underline
-  "highlight clear SpellCap
-  "highlight SpellCap term=underline cterm=underline
-  "highlight clear SpellRare
-  "highlight SpellRare term=underline cterm=underline
-  "highlight clear SpellLocal
-  "highlight SpellLocal term=underline cterm=underline
+  highlight SpellBad term=underline cterm=underline
+  highlight clear SpellCap
+  highlight SpellCap term=underline cterm=underline
+  highlight clear SpellRare
+  highlight SpellRare term=underline cterm=underline
+  highlight clear SpellLocal
+  highlight SpellLocal term=underline cterm=underline
+
+  highlight Conceal ctermbg=none
 endfunction
 
 function! SetCssFile()
@@ -724,6 +731,10 @@ endif
 " ===================================================================}}}
 
 
+" === vim-latex setup ==============================================={{{
+imap <C-g> <Plug>IMAP_JumpForward
+nmap <C-g> <Plug>IMAP_JumpForward
+" ===================================================================}}}
 
 " install vundle automatically, if not existend
 if !isdirectory(expand('~').'/.vim/bundle/vundle')
@@ -775,6 +786,8 @@ if isdirectory(expand('~').'/.vim/bundle/vundle')
   Bundle 'csv.vim'
   "html
   Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+  "latex
+  Bundle 'git://github.com/jcf/vim-latex.git'
   "colorschemes
   Bundle 'Solarized'
   Bundle 'flazz/vim-colorschemes'
@@ -787,6 +800,8 @@ if isdirectory(expand('~').'/.vim/bundle/vundle')
   Bundle 'L9'
   Bundle 'tsaleh/vim-align.git'
   "Bundle 'CSApprox'
+  "sage
+  Bundle 'petRUShka/vim-sage'
 
   "testing
   "Bundle 'LatexParFormat'
