@@ -54,6 +54,7 @@ done <<EOF
 /home/stefan/.muttrc
 /home/stefan/.offlineimaprc
 /home/stefan/.mailcap
+/etc/default/tlp
 EOF
 
 echo
