@@ -12,9 +12,9 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
                       ,"-L","30" ,"-H","60"
                       ,"-h","#FFB6B0" ,"-l","#CEFFAC" ,"-n","#FFFFCC"
                       ,"-w","3"] 10
-                    , Run Date "%a %d.%m.%Y %H:%M:%S" "date" 10
+                    , Run Date "%a %d.%m.%Y %H:%M:%S" "date" 100
                     , Run Com "uname" ["-s","-r"] "" 36000
-                    , Run DynNetwork  ["-L","0" ,"-H","32","--normal","green", "--high","red"] 10
+                    , Run DynNetwork  ["-L","0" ,"-H","32","--normal","green", "--high","red"] 220
                     , Run BatteryP ["BAT0","BAT1","BAT3"]
                       ["-t", "Bat: <left>%<acstatus>"
                       , "-L", "10" , "-H", "80"
@@ -27,7 +27,7 @@ Config { font = "-misc-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
                       , "-l", "red" , "-m", "blue" , "-h", "green"] 600
                     , Run Com "/home/stefan/bin/myinformation.sh" [] "info" 100
                     , Run Brightness ["-t", "@ <fc=#7dff7d><percent>%</fc>"] 60                    
-                    , Run TopProc ["-t","(<name1>)"] 10
+                    , Run TopProc ["-t","(<name1>)"] 20
                     , Run CoreTemp [ "-t", "@ <core0>°C" ] 60
                     ]
        , sepChar = "%"

@@ -42,7 +42,7 @@ remotehost = secureimap.t-online.de
 remoteuser = hackenberg.stefan@t-online.de
 remotepassfile = ~/.keys/imap-t-online.key
 ssl = yes
-cert_fingerprint = db69d867e9bc247d089f5cf192f9e52f52076107
+cert_fingerprint = 0d2d6cd7130feee2dfbfc4418fdad789a6f28811
 keepalive = 60
 holdconnectionopen = yes
 

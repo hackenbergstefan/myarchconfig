@@ -16,7 +16,7 @@
 --
 -- written by maximilian-huber.de
 --
--- Last modified: Mo Feb 10, 2014  08:33
+-- Last modified: Sa Mär 01, 2014  02:02
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# OPTIONS_GHC -W -fwarn-unused-imports -fno-warn-missing-signatures #-}
 ------------------------------------------------------------------------
@@ -184,13 +184,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     {-, ((modm,              xK_z), spawn "~/bin/disp-controll 1") -- auto-}
     {-, ((modm .|. shiftMask, xK_z), spawn "~/bin/disp-controll 2") -- toggle-}
     {-, ((modm .|. controlMask, xK_z), spawn "~/bin/disp-controll 3") -- cycle-}
-    , ((modm,              xK_z), spawn "~/bin/myautosetup.sh") -- auto-}
-    , ((0,                0x1008ff59), spawn "~/bin/myautosetup.sh")
     -- screensaver
     , ((modm .|. shiftMask,  xK_y    ), spawn "slock")
 
     --invert Colors
-    -- , ((modm,                xK_Home ), spawn "xcalib -i -a")
+    , ((modm,                xK_Home ), spawn "xcalib -i -a")
 
     -- screenshot
     , ((modm, xK_Print), spawn "scrot screen_%Y-%m-%d_%H-%M-%S.png -d 1")
@@ -380,7 +378,7 @@ scratchpads = [
         , NS "notepad" "urxvtc -name Notepad -e vim ~/TODO/notizen.wiki"
             (resource =? "Notepad")
             (customFloating $ W.RationalRect (1/12) (1/10) (5/6) (4/5))
-       , NS "ScratchMutt" "urxvtc -name ScratchMutt -e bash -c \"~/bin/mailclient.sh\""
+       , NS "ScratchMutt" "urxvtc -name ScratchMutt -e bash -c \"mutt\""
            (resource =? "ScratchMutt")
            (customFloating $ W.RationalRect (1/12) (1/10) (5/6) (4/5))
     ] where role = stringProperty "WM_WINDOW_ROLE"

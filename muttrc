@@ -100,5 +100,5 @@ color status        white        color235
 # Aussehen der Sidebar. Funktioniert nur mit mutt-pached
 set sidebar_delim   = '  │'
 set sidebar_visible = yes
-set sidebar_width   = 24 
+set sidebar_width   = 48 
 #color sidebar_new color221 color233

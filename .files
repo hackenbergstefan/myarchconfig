@@ -26,3 +26,4 @@ etc/fuse.conf    /etc/fuse.conf
 muttrc    /home/stefan/.muttrc
 offlineimaprc    /home/stefan/.offlineimaprc
 mailcap    /home/stefan/.mailcap
+etc/default/tlp    /etc/default/tlp
