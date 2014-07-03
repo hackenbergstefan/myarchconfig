@@ -2,7 +2,7 @@
 "
 " Written by Maximilian-Huber.de
 "
-" Last modified: So Mär 23, 2014  10:45
+" Last modified: Mi Jun 18, 2014  11:31
 "
 " !!!
 "       this config will automatically download Vundle from git, and then it
@@ -231,18 +231,11 @@ else
   set background=light
 endif
 
-if filereadable(expand("$VIMRUNTIME/bundle/vim-colorschemes/colors/lucius.vim"))
-  "let g:lucius_style='light'
-  colorscheme lucius
-  hi Normal ctermbg=none
-elseif filereadable(expand("$HOME/.vim/bundle/vim-colorschemes/colors/lucius.vim"))
-  "let g:lucius_style='light'
-  colorscheme lucius
-  hi Normal ctermbg=none
-else
-  colorscheme default
-  "let g:CSApprox_hook_post = 'hi Normal ctermbg=none'
+let mycurcolschemefile = "/tmp/cur_term_colscheme"
+if filereadable(mycurcolschemefile) 
+  let g:lucius_style = readfile(mycurcolschemefile)[0]
 endif
+colorscheme mylucius
 
 " ====  hilight to long lines  ======================================{{{
 if exists('+colorcolumn')
@@ -252,6 +245,69 @@ else
     highlight OverLength ctermbg=red ctermfg=white guibg=#592929
     match OverLength /\%81v.\+/
 endif
+"                                                                    }}}
+
+" ====  cycle through colorschemes =================================={{{
+let s:schemes = "\n".expand("$HOME/.vim/colors/*.vim")."\n"
+let s:currentfile = ""
+let s:currentname = ""
+
+function! s:CycleColor(direction)
+  if exists("g:colors_name") && g:colors_name != s:currentname
+    " The user must have selected a colorscheme manually; try
+    " to find it and choose the next one after it
+    let nextfile = substitute(s:schemes, '.*\n\([^\x0A]*[/\\]'.g:colors_name.'\.vim\)\n.*', '\1', '')
+    if nextfile == s:schemes
+      let s:currentfile = ""
+    else
+      let s:currentfile = nextfile
+    endif
+  endif
+
+  if a:direction >= 0
+    " Find the current file name, and select the next one.
+    " No substitution will take place if the current file is not
+    "   found or is the last in the list.
+    let nextfile = substitute(s:schemes, '.*\n'.s:currentfile.'\n\([^\x0A]\+\)\n.*', '\1', '')
+    " If the above worked, there will be no control chars in
+    "   nextfile, so this will not substitute; otherwise, this will
+    "   choose the first file in the list.
+    let nextfile = substitute(nextfile, '\n\+\([^\x0A]\+\)\n.*', '\1', '')
+  else
+    let nextfile = substitute(s:schemes, '.*\n\([^\x0A]\+\)\n'.s:currentfile.'\n.*', '\1', '')
+    let nextfile = substitute(nextfile, '.*\n\([^\x0A]\+\)\n\+', '\1', '')
+  endif
+
+  if nextfile != s:schemes
+    let clrschm = substitute(nextfile, '^.*[/\\]\([^/\\]\+\)\.vim$', '\1', '')
+    " In case the color scheme does not set this variable, empty it so we can tell.
+    unlet! g:colors_name
+    exec 'colorscheme '.clrschm
+    redraw
+    if exists("g:colors_name")
+      let s:currentname = g:colors_name
+      if clrschm != g:colors_name
+        " Let user know colorscheme did not set g:colors_name properly
+        echomsg 'colorscheme' clrschm 'set g:colors_name to' g:colors_name
+      endif
+    else
+      let s:currentname = ""
+      echomsg 'colorscheme' clrschm 'did not set g:colors_name'
+    endif
+    echo s:currentname.' ('.nextfile.')'
+  endif
+
+  let s:currentfile = nextfile
+
+endfunction
+
+function! s:CycleColorRefresh()
+  let s:schemes = "\n".globpath(&rtp, "colors/*.vim")."\n"
+endfunction
+
+command! CycleColorNext :call s:CycleColor(1)
+command! CycleColorPrev :call s:CycleColor(-1)
+command! CycleColorRefresh :call s:CycleColorRefresh()
 "                                                                    }}}
 "                                                                    }}}
 " ===================================================================}}}
@@ -413,6 +469,22 @@ inoremap <expr> <Tab>     pumvisible() ? "\<C-y>" : "\<Tab>"
 
 map <leader>bb :source ~/.vimrc-neo<cr>
 
+
+noremap <Leader>1 :call SwitchLuciusDarkBright()<CR>
+
+function! SwitchLuciusDarkBright()
+    if exists('g:lucius_style')
+        if g:lucius_style == "dark"
+            let g:lucius_style="light"
+        else
+            let g:lucius_style="dark"
+        endif
+    else
+        let g:lucius_style="dark"
+    endif
+    colorscheme mylucius
+endfunction
+
 " ===================================================================}}}
 " ====  Filetype specific  =========================================
 " ==================================================================={{{
@@ -530,6 +602,23 @@ function! SetLaTeXFile()
   highlight SpellLocal term=underline cterm=underline
 
   highlight Conceal ctermbg=none
+  
+  function! SyncTexForward()
+   let execstr = 'silent !for f in ``ls latexmk_files/*.pdf``; do;zathura --synctex-forward '.line('.').":".col('.').":".'%:t'.' $f; done;'
+   exec execstr 
+   redraw!
+  endfunction
+  nmap <Leader>f :call SyncTexForward()<CR>
+
+  " vim-latex german setup (from
+  " vim-latex/ftplugin/latex-suite/packages/ngerman
+  let ngerman_package_file = 1
+
+  let g:TeX_package_ngerman = ''
+  let g:TeX_package_option_ngerman = ''
+  " For now just define the smart quotes.
+  let b:Tex_SmartQuoteOpen = '"`'
+  let b:Tex_SmartQuoteClose = "\"'"
 endfunction
 
 function! SetCssFile()
@@ -657,6 +746,12 @@ augroup END
 " ====  Plugin specific  ============================================
 " ==================================================================={{{
 
+" === csapprox setup ==========================================={{{
+let g:CSApprox_hook_post = ['hi Normal ctermbg=none',
+                            \ 'hi NonText ctermbg=none',
+                            \ 'hi Conceal ctermbg=none']
+" ===================================================================}}}
+
 " === neocomplcache setup ==========================================={{{
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
@@ -730,7 +825,6 @@ endif
 
 " ===================================================================}}}
 
-
 " === vim-latex setup ==============================================={{{
 imap <C-g> <Plug>IMAP_JumpForward
 nmap <C-g> <Plug>IMAP_JumpForward
@@ -799,9 +893,12 @@ if isdirectory(expand('~').'/.vim/bundle/vundle')
   Bundle 'vim-less'
   Bundle 'L9'
   Bundle 'tsaleh/vim-align.git'
-  "Bundle 'CSApprox'
+  Bundle 'CSApprox'
   "sage
   Bundle 'petRUShka/vim-sage'
+
+  "printing
+  Bundle 'Printer-Dialog'
 
   "testing
   "Bundle 'LatexParFormat'

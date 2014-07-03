@@ -16,7 +16,7 @@
 --
 -- written by maximilian-huber.de
 --
--- Last modified: Sa Mär 01, 2014  02:02
+-- Last modified: Fr Jun 20, 2014  11:46
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# OPTIONS_GHC -W -fwarn-unused-imports -fno-warn-missing-signatures #-}
 ------------------------------------------------------------------------
@@ -99,13 +99,20 @@ colorBlueAlt   = "#3955c4"
 colorRed       = "#f7a16e"
 colorRedAlt    = "#e0105f"
 colorGreen     = "#66ff66"
+
+lightHook = "echo light> /tmp/cur_term_colscheme;"++
+                "xrdb -merge ~/.urxvt/light2.col;"
+darkHook  = "echo dark> /tmp/cur_term_colscheme;"++
+                "xrdb -merge ~/.Xresources;"
 --}}}
+
 -----------------------------------------------------------------------
 -- Key bindings:
 --{{{
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [ --default --{{{
     ((modm .|. shiftMask,   xK_Return), spawn $ XMonad.terminal conf)
+    , ((modm,   xK_o), spawn (lightHook++"urxvtc"))
     , ((modm .|. shiftMask .|. controlMask, xK_Return), spawn "urxvtd -q -f -o &")
 
     , ((modm,               xK_p     ), spawn "dmenu_run")
@@ -113,7 +120,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_x     ), shellPrompt defaultXPConfig)
     {-, ((modm .|. shiftMask, xK_p     ), spawn "gmrun")-}
 
-    , ((modm,               xK_o     ), spawn "urxvtc -e bash -c 'EDITOR=vim ranger'")
+    {-, ((modm,               xK_o     ), spawn "urxvtc -e bash -c 'EDITOR=vim ranger'")-}
 
     -- close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)
@@ -370,15 +377,17 @@ myManageHook = composeAll
 --
 scratchpads :: [NamedScratchpad]
 scratchpads = [
-        NS "scratchpad" "urxvtc" -- -name Scratchpad -e ~/.xmonad/tmux-scratch.sh"
+        NS "scratchpad" (darkHook++"urxvtc") -- -name Scratchpad -e ~/.xmonad/tmux-scratch.sh"
             (resource =? "Scratchpad")
             (customFloating $ W.RationalRect (1/12) (1/10) (5/6) (4/5))
         , NS "ScratchWeb" "dwb" (resource =? "dwb")
             (customFloating $ W.RationalRect (1/12) (1/12) (5/6) (5/6))
-        , NS "notepad" "urxvtc -name Notepad -e vim ~/TODO/notizen.wiki"
+        , NS "notepad" (darkHook++
+                "urxvtc -name Notepad -e vim ~/TODO/notizen.wiki")
             (resource =? "Notepad")
             (customFloating $ W.RationalRect (1/12) (1/10) (5/6) (4/5))
-       , NS "ScratchMutt" "urxvtc -name ScratchMutt -e bash -c \"mutt\""
+       , NS "ScratchMutt" (darkHook++
+                "urxvtc -name ScratchMutt -e bash -c \"mutt\"")
            (resource =? "ScratchMutt")
            (customFloating $ W.RationalRect (1/12) (1/10) (5/6) (4/5))
     ] where role = stringProperty "WM_WINDOW_ROLE"
@@ -424,7 +433,7 @@ myWorkspaces = ["1","2","3","4","5","6","jd","web","9"]
 
 myConfig xmproc = withUrgencyHook NoUrgencyHook $
     defaultConfig {
-        terminal             = "urxvt"
+        terminal             = (darkHook++"urxvtc")
         , focusFollowsMouse  = False ---see: focusFollow
         , borderWidth        = 2
         {-, modMask            = mod4Mask-}
@@ -450,7 +459,7 @@ myConfig xmproc = withUrgencyHook NoUrgencyHook $
 ------------------------------------------------------------------------
 -- Now run xmonad
 main = do
-    xmproc <- spawnPipe "xmobar ~/.xmonad/xmobarrc"
+    xmproc <- spawnPipe "/home/stefan/.cabal/bin/xmobar ~/.xmonad/xmobarrc"
     xmonad $ myConfig xmproc
 
 -- vim: set ts=4 sw=4 sts=4 et fenc=utf-8 foldmethod=marker foldmarker={{{,}}}:

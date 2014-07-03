@@ -35,5 +35,7 @@ xbacklight = 50 &
 
 ([[ -f ~/bin/mailrun.sh ]] && ~/bin/mailrun.sh) &
 
-exec dbus-launch xmonad
+unclutter -grab &
+
+exec dbus-launch /home/stefan/.cabal/bin/xmonad
 
