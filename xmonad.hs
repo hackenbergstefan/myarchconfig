@@ -16,7 +16,7 @@
 --
 -- written by maximilian-huber.de
 --
--- Last modified: Fr Jun 20, 2014  11:46
+-- Last modified: Do Jul 10, 2014  08:17
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# OPTIONS_GHC -W -fwarn-unused-imports -fno-warn-missing-signatures #-}
 ------------------------------------------------------------------------
@@ -57,6 +57,7 @@ import XMonad.Actions.GridSelect
 
 import XMonad.Layout.BoringWindows( boringAuto, focusDown )
 import XMonad.Layout.IM ( Property(..), withIM )
+import XMonad.Layout.LayoutCombinators  ( (*||*) )
 import XMonad.Layout.Magnifier ( magnifier )
 import XMonad.Layout.Named ( named )
 import XMonad.Layout.NoBorders ( smartBorders )
@@ -69,6 +70,7 @@ import XMonad.Layout.SubLayouts ( subLayout, pullGroup,
 import XMonad.Layout.Tabbed ( addTabs, shrinkText, tabbedBottom, defaultTheme,
     Theme(..) )
 import XMonad.Layout.WindowNavigation ( configurableNavigation, navigateColor )
+import XMonad.Layout.Minimize
 
 import qualified Data.Map                    as M
 import qualified XMonad.StackSet             as W
@@ -143,9 +145,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Move focus to the previous window
     , ((modm,               xK_k     ), windows W.focusUp  )
-
-    -- Move focus to the master window
-    , ((modm,               xK_m     ), windows W.focusMaster  )
 
     -- Swap the focused window and the master window
     , ((modm,               xK_Return), windows W.swapMaster)
@@ -238,6 +237,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,                xK_n     ), namedScratchpadAction scratchpads "notepad")
     ] --}}}
     ++
+    [ --Layout --{{{
+      ((modm,               xK_m     ), withFocused minimizeWindow)
+    , ((modm .|. shiftMask, xK_m     ), sendMessage RestoreNextMinimizedWin)
+    ] --}}}
+    ++
     [ -- for XMonad.Layout.SubLayouts --{{{
      ((modm .|. controlMask, xK_h), sendMessage $ pullGroup L)
      , ((modm .|. controlMask, xK_l), sendMessage $ pullGroup R)
@@ -287,9 +291,10 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 --{{{
 myMainLayout = configurableNavigation (navigateColor "#333333") $
     boringAuto $
-    (tiled ||| mag ||| full ||| stb)
+    (tiled ||| mag ||| full ||| dtb)
     where
         tiled       = named " "  $
+            minimize $
             addTabs shrinkText myTab $
             subLayout [] Simplest $
             ResizableTall nmaster delta ratio []
@@ -297,8 +302,9 @@ myMainLayout = configurableNavigation (navigateColor "#333333") $
             magnifier (Tall nmaster delta ratio)
         full        = named "full" $
             Full
-        stb         = named "tabs" $
-            tabbedBottom shrinkText myTab
+        dtb         = named "tabs" $
+            minimize $ 
+            tabbedBottom shrinkText myTab *||* tiled
         nmaster     = 1
         ratio       = 1/2
         delta       = 3/100
