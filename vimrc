@@ -38,6 +38,9 @@ if filereadable(expand('~').'/.vim/autoload/plug.vim')
     Plug 'MarcWeber/vim-addon-mw-utils'
     Plug 'tomtom/tlib_vim'
     Plug 'sudo.vim'              "edit file as sudo 
+
+    "own ftplugins
+    Plug 'https://github.com/hackenbergstefan/my-vimftplugins'
     
 
     call plug#end()
