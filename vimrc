@@ -299,8 +299,6 @@ nmap <C-g> <Plug>IMAP_JumpForward
 " ====  Filetype Specific ==========================================={{{
 augroup filetypedetect
   au! BufRead,BufNewFile *.sage,*.spyx,*.pyx setfiletype python
+  au! BufRead,BufNewFile tmpmsg-*.txt setfiletype mail
 augroup END
 " }}}
-
-
-
