@@ -227,8 +227,13 @@ colorscheme lucius
 " ====  Keymappings ================================================={{{
 " ----  General -----------------------------------------------------{{{
 let mapleader=","
+" faster navigation
 noremap <c-j> 8j
 noremap <c-k> 8k
+
+" stay in visual mode after indenting
+vnoremap < <gv
+vnoremap > >gv
 " }}}
 " }}}
 " ====  Pluginspecific Setup ========================================{{{
