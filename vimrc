@@ -26,13 +26,12 @@ if filereadable(expand('~').'/.vim/autoload/plug.vim')
     Plug 'nathanaelkane/vim-indent-guides' "Indention hinting for code lines
     Plug 'jonathanfilip/vim-lucius' "Colorscheme
     "Plug 'edkolev/tmuxline.vim'  "Make tmux colors like vim statusline
-    Plug 'gregsexton/MatchTag', {'for': ['html','xml']}
-                                 "Match Paren for HTML tags
+    Plug 'gregsexton/MatchTag', {'for': ['html','xml']} "Match Paren for HTML tags
     Plug 'matchparenpp'          "Show matching parenline in statusline
     Plug 'tpope/vim-fugitive'    "git wrapper
-    Plug 'LaTeX-Suite-aka-Vim-LaTeX', {'for': ['tex','sty']}
-                                 "Latex!
-    "Plug 'Yggdroot/indentLine'   "indent line
+    Plug 'LaTeX-Suite-aka-Vim-LaTeX', {'for': ['tex','sty']} "Latex!
+    "Plug 'Yggdroot/indentLine', {'for': ['c','python']}   "indent line
+    Plug 'vimwiki/vimwiki'       "vimwiki
 
     "Util
     Plug 'MarcWeber/vim-addon-mw-utils'
@@ -234,6 +233,18 @@ noremap <c-k> 8k
 " stay in visual mode after indenting
 vnoremap < <gv
 vnoremap > >gv
+
+"save without sudo
+cmap w!! w !sudo tee % >/dev/null
+
+" Use Q for formatting the current paragraph (or selection)
+vmap <leader>Q gq
+nmap <leader>Q gqap
+
+"Open last/alternate buffer
+noremap <Leader><Leader> <C-^>
+
+
 " }}}
 " }}}
 " ====  Pluginspecific Setup ========================================{{{
