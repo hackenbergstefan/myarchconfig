@@ -14,7 +14,7 @@ alias rsync="rsync -P"
 
 #--------------------------------------------------------------------
 #   Pacman
-#--------------------------------------------------------------------
+#--------------------------------------------------------------------{{{
 alias pacupg='sudo pacman -Syu'		# Synchronize with repositories and then upgrade packages that are out of date on the local system.
 alias pacin='sudo pacman -S'		# Install specific package(s) from the repositories
 alias pacins='sudo pacman -U'		# Install specific package not from the repositories but from a file 
@@ -100,6 +100,13 @@ permfix() {
     find "$dir" -type f -exec chmod 644 {} \;
   done
 }
+#Fix permissions
+sudo_permfix() {
+  for dir in "$@"; do
+    sudo find "$dir" -type d -exec chmod 755 {} \;
+    sudo find "$dir" -type f -exec chmod 644 {} \;
+  done
+}
 
 geeqie() {
   command geeqie "$@" &
@@ -135,5 +142,10 @@ myxelatexmk(){
 #-------------------------------------------------------------------}}}
 
 
+#--------------------------------------------------------------------
+#   Mutt
+#--------------------------------------------------------------------{{{
+alias mails="mutt -F ~/.mutt/muttrc_stefan"
+#--------------------------------------------------------------------}}}
 # vim: set filetype=sh foldmethod=marker foldmarker={{{,}}}:
 

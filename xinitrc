@@ -37,5 +37,13 @@ xbacklight = 50 &
 
 unclutter -grab &
 
-exec dbus-launch /home/stefan/.cabal/bin/xmonad
+#exec dbus-launch /home/stefan/.cabal/bin/xmonad
 
+#if [[ $1 == "i3" ]]; then
+    exec dbus-launch --sh-syntax --exit-with-session i3
+    # -V -d all > ~/.i3/i3log-$(date +'%F-%k-%M-%S') 2>&1
+#elif [[ $1 == "xmonad" ]]; then
+    #exec dbus-launch /home/stefan/.cabal/bin/xmonad
+#else
+    #echo "Choose a window manager"
+#fi
