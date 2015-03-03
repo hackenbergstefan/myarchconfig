@@ -1,2 +1,182 @@
 #!/bin/bash
 #Install file for x240
+read -p "copy /home/stefan/.vimrc ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o stefan -g users -m 600 "x240/home/stefan/dot_vimrc" /home/stefan/.vimrc"
+    install -D -o stefan -g users -m 600 "x240/home/stefan/dot_vimrc" /home/stefan/.vimrc
+fi
+read -p "copy /home/stefan/.aliasrc ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o stefan -g users -m 644 "x240/home/stefan/dot_aliasrc" /home/stefan/.aliasrc"
+    install -D -o stefan -g users -m 644 "x240/home/stefan/dot_aliasrc" /home/stefan/.aliasrc
+fi
+read -p "copy /home/stefan/.zshrc.local ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o stefan -g users -m 644 "x240/home/stefan/dot_zshrc.local" /home/stefan/.zshrc.local"
+    install -D -o stefan -g users -m 644 "x240/home/stefan/dot_zshrc.local" /home/stefan/.zshrc.local
+fi
+read -p "copy /home/stefan/.zlogin ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o stefan -g users -m 644 "x240/home/stefan/dot_zlogin" /home/stefan/.zlogin"
+    install -D -o stefan -g users -m 644 "x240/home/stefan/dot_zlogin" /home/stefan/.zlogin
+fi
+read -p "copy /home/stefan/bin ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o stefan -g users -m 755 "x240/home/stefan/bin" /home/stefan/bin"
+    install -D -o stefan -g users -m 755 "x240/home/stefan/bin" /home/stefan/bin
+fi
+read -p "copy /home/stefan/.Xresources ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o stefan -g users -m 644 "x240/home/stefan/dot_Xresources" /home/stefan/.Xresources"
+    install -D -o stefan -g users -m 644 "x240/home/stefan/dot_Xresources" /home/stefan/.Xresources
+fi
+read -p "copy /home/stefan/.xinitrc ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o stefan -g users -m 644 "x240/home/stefan/dot_xinitrc" /home/stefan/.xinitrc"
+    install -D -o stefan -g users -m 644 "x240/home/stefan/dot_xinitrc" /home/stefan/.xinitrc
+fi
+read -p "copy /home/stefan/.xbindkeysrc ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o stefan -g users -m 644 "x240/home/stefan/dot_xbindkeysrc" /home/stefan/.xbindkeysrc"
+    install -D -o stefan -g users -m 644 "x240/home/stefan/dot_xbindkeysrc" /home/stefan/.xbindkeysrc
+fi
+read -p "copy /etc/X11/xorg.conf.d ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o root -g root -m 755 "x240/etc/X11/xorg.conf.d" /etc/X11/xorg.conf.d"
+    install -D -o root -g root -m 755 "x240/etc/X11/xorg.conf.d" /etc/X11/xorg.conf.d
+fi
+read -p "copy /home/stefan/.i3blocks.conf ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o stefan -g users -m 600 "x240/home/stefan/dot_i3blocks.conf" /home/stefan/.i3blocks.conf"
+    install -D -o stefan -g users -m 600 "x240/home/stefan/dot_i3blocks.conf" /home/stefan/.i3blocks.conf
+fi
+read -p "copy /home/stefan/.i3/config ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o stefan -g users -m 600 "x240/home/stefan/dot_i3/config" /home/stefan/.i3/config"
+    install -D -o stefan -g users -m 600 "x240/home/stefan/dot_i3/config" /home/stefan/.i3/config
+fi
+read -p "copy /home/stefan/.i3/scripts ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o stefan -g users -m 700 "x240/home/stefan/dot_i3/scripts" /home/stefan/.i3/scripts"
+    install -D -o stefan -g users -m 700 "x240/home/stefan/dot_i3/scripts" /home/stefan/.i3/scripts
+fi
+read -p "copy /home/stefan/.xmonad/xmobarrc ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o stefan -g users -m 644 "x240/home/stefan/dot_xmonad/xmobarrc" /home/stefan/.xmonad/xmobarrc"
+    install -D -o stefan -g users -m 644 "x240/home/stefan/dot_xmonad/xmobarrc" /home/stefan/.xmonad/xmobarrc
+fi
+read -p "copy /home/stefan/.xmonad/xmonad.hs ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o stefan -g users -m 644 "x240/home/stefan/dot_xmonad/xmonad.hs" /home/stefan/.xmonad/xmonad.hs"
+    install -D -o stefan -g users -m 644 "x240/home/stefan/dot_xmonad/xmonad.hs" /home/stefan/.xmonad/xmonad.hs
+fi
+read -p "copy /home/stefan/.asoundrc ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o stefan -g users -m 644 "x240/home/stefan/dot_asoundrc" /home/stefan/.asoundrc"
+    install -D -o stefan -g users -m 644 "x240/home/stefan/dot_asoundrc" /home/stefan/.asoundrc
+fi
+read -p "copy /home/stefan/.asoundrc.asoundconf ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o stefan -g users -m 644 "x240/home/stefan/dot_asoundrc.asoundconf" /home/stefan/.asoundrc.asoundconf"
+    install -D -o stefan -g users -m 644 "x240/home/stefan/dot_asoundrc.asoundconf" /home/stefan/.asoundrc.asoundconf
+fi
+read -p "copy /home/stefan/.asoundrc.hdmi-connected ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o stefan -g users -m 644 "x240/home/stefan/dot_asoundrc.hdmi-connected" /home/stefan/.asoundrc.hdmi-connected"
+    install -D -o stefan -g users -m 644 "x240/home/stefan/dot_asoundrc.hdmi-connected" /home/stefan/.asoundrc.hdmi-connected
+fi
+read -p "copy /home/stefan/.latexmkrc ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o stefan -g users -m 644 "x240/home/stefan/dot_latexmkrc" /home/stefan/.latexmkrc"
+    install -D -o stefan -g users -m 644 "x240/home/stefan/dot_latexmkrc" /home/stefan/.latexmkrc
+fi
+read -p "copy /home/stefan/.mailcap ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o stefan -g users -m 644 "x240/home/stefan/dot_mailcap" /home/stefan/.mailcap"
+    install -D -o stefan -g users -m 644 "x240/home/stefan/dot_mailcap" /home/stefan/.mailcap
+fi
+read -p "copy /home/stefan/.muttrc ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o stefan -g users -m 600 "x240/home/stefan/dot_muttrc" /home/stefan/.muttrc"
+    install -D -o stefan -g users -m 600 "x240/home/stefan/dot_muttrc" /home/stefan/.muttrc
+fi
+read -p "copy /home/stefan/.mutt/muttrc_stefan ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o stefan -g users -m 600 "x240/home/stefan/dot_mutt/muttrc_stefan" /home/stefan/.mutt/muttrc_stefan"
+    install -D -o stefan -g users -m 600 "x240/home/stefan/dot_mutt/muttrc_stefan" /home/stefan/.mutt/muttrc_stefan
+fi
+read -p "copy /home/stefan/.offlineimaprc ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o stefan -g users -m 600 "x240/home/stefan/dot_offlineimaprc" /home/stefan/.offlineimaprc"
+    install -D -o stefan -g users -m 600 "x240/home/stefan/dot_offlineimaprc" /home/stefan/.offlineimaprc
+fi
+read -p "copy /home/stefan/.msmtprc ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o stefan -g users -m 600 "x240/home/stefan/dot_msmtprc" /home/stefan/.msmtprc"
+    install -D -o stefan -g users -m 600 "x240/home/stefan/dot_msmtprc" /home/stefan/.msmtprc
+fi
+read -p "copy /etc/default/tlp ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o root -g root -m 644 "x240/etc/default/tlp" /etc/default/tlp"
+    install -D -o root -g root -m 644 "x240/etc/default/tlp" /etc/default/tlp
+fi
+read -p "copy /etc/modprobe.d/blacklist.conf ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o root -g root -m 644 "x240/etc/modprobe.d/blacklist.conf" /etc/modprobe.d/blacklist.conf"
+    install -D -o root -g root -m 644 "x240/etc/modprobe.d/blacklist.conf" /etc/modprobe.d/blacklist.conf
+fi
+read -p "copy /etc/pam.d/passwd ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o root -g root -m 644 "x240/etc/pam.d/passwd" /etc/pam.d/passwd"
+    install -D -o root -g root -m 644 "x240/etc/pam.d/passwd" /etc/pam.d/passwd
+fi
+read -p "copy /etc/pam.d/system-auth ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o root -g root -m 644 "x240/etc/pam.d/system-auth" /etc/pam.d/system-auth"
+    install -D -o root -g root -m 644 "x240/etc/pam.d/system-auth" /etc/pam.d/system-auth
+fi
+read -p "copy /etc/security/pam_encfs.conf ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o root -g root -m 644 "x240/etc/security/pam_encfs.conf" /etc/security/pam_encfs.conf"
+    install -D -o root -g root -m 644 "x240/etc/security/pam_encfs.conf" /etc/security/pam_encfs.conf
+fi
+read -p "copy /etc/fuse.conf ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o root -g root -m 644 "x240/etc/fuse.conf" /etc/fuse.conf"
+    install -D -o root -g root -m 644 "x240/etc/fuse.conf" /etc/fuse.conf
+fi
+read -p "copy /etc/fstab ? [Y/n]" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+    echo "install -D -o root -g root -m 644 "x240/etc/fstab" /etc/fstab"
+    install -D -o root -g root -m 644 "x240/etc/fstab" /etc/fstab
+fi

@@ -1,0 +1,35 @@
+#Die folgenden Einstellungen gelten für alle Accounts:
+defaults
+tls on
+tls_starttls on
+tls_certcheck off
+auth on
+#auskommentieren, wenn gewünscht:
+logfile ~/.msmtp.log
+
+###############################################################################
+account t-online
+host securesmtp.t-online.de
+from hackenberg.stefan@t-online.de
+user hackenberg.stefan@t-online.de
+port 587
+passwordeval cat ~/.keys/imap-t-online.key 
+
+###############################################################################
+account vlinux-gmail
+host 5.45.104.211
+from hackenbergste@gmail.com
+user gmail@stefan
+port 587
+passwordeval cat ~/.keys/mail-vlinux-stefan
+
+###############################################################################
+account vlinux-stefan
+host 5.45.104.211
+from stefan@stefan-hackenberg.de
+user stefan@stefan
+port 587
+passwordeval cat ~/.keys/mail-enterprise-stefan
+
+#Das Konto soll das Standard-Konto werden:
+account default: vlinux-stefan

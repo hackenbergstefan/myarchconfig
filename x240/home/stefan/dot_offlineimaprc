@@ -1,0 +1,152 @@
+[general]
+metadata = ~/.offlineimap
+# List of accounts to be synced, separated by a comma.
+accounts = stefan 
+#t-online, gmail
+maxsyncaccounts = 3 
+socktimeout = 60
+#ui = quiet
+
+[mbnames]
+enabled = yes
+filename = ~/.mutt/mailboxes
+header = "mailboxes "
+peritem = "+%(accountname)s/%(foldername)s"
+sep = " "
+footer = "\n"
+
+###############################################################################
+[Account stefan]
+# Identifier for the local repository; e.g. the maildir to be synced via IMAP.
+localrepository = stefan-local
+# Identifier for the remote repository; i.e. the actual IMAP, usually non-local.
+remoterepository = stefan-remote
+# Status cache. Default is plain, which eventually becomes huge and slow.
+status_backend = sqlite
+
+# Minutes between syncs
+autorefresh = 5
+# Number of quick-syncs between autorefreshes. Quick-syncs do not update if the
+# only changes were to IMAP flags
+quick = 10
+
+[Repository stefan-local]
+# Currently, offlineimap only supports maildir and IMAP for local repositories.
+type = Maildir
+# Where should the mail be placed?
+localfolders = ~/Mail/stefan
+sep = /
+
+[Repository stefan-remote]
+# Remote repos can be IMAP or Gmail, the latter being a preconfigured IMAP.
+type = IMAP
+remotehost = 5.45.104.211 
+remoteuser = stefan@stefan
+remotepassfile = ~/.keys/mail-enterprise-stefan
+ssl = yes
+cert_fingerprint = db6f810cf79f5e6abf8f5f1af0bc8b30cfd9236e
+keepalive = 60
+holdconnectionopen = yes
+
+###############################################################################
+
+###############################################################################
+[Account t-online]
+# Identifier for the local repository; e.g. the maildir to be synced via IMAP.
+localrepository = t-online-local
+# Identifier for the remote repository; i.e. the actual IMAP, usually non-local.
+remoterepository = t-online-remote
+# Status cache. Default is plain, which eventually becomes huge and slow.
+status_backend = sqlite
+
+# Minutes between syncs
+autorefresh = 5
+# Number of quick-syncs between autorefreshes. Quick-syncs do not update if the
+# only changes were to IMAP flags
+quick = 10
+
+[Repository t-online-local]
+# Currently, offlineimap only supports maildir and IMAP for local repositories.
+type = Maildir
+# Where should the mail be placed?
+localfolders = ~/Mail/t-online
+sep = /
+
+[Repository t-online-remote]
+# Remote repos can be IMAP or Gmail, the latter being a preconfigured IMAP.
+type = IMAP
+remotehost = 5.45.104.211 
+remoteuser = tonline@stefan
+remotepassfile = ~/.keys/mail-enterprise-stefan
+ssl = yes
+cert_fingerprint = db6f810cf79f5e6abf8f5f1af0bc8b30cfd9236e
+keepalive = 60
+holdconnectionopen = yes
+
+###############################################################################
+
+[Account gmail]
+# Identifier for the local repository; e.g. the maildir to be synced via IMAP.
+localrepository = gmail-local
+# Identifier for the remote repository; i.e. the actual IMAP, usually non-local.
+remoterepository = gmail-remote
+# Status cache. Default is plain, which eventually becomes huge and slow.
+status_backend = sqlite
+
+# Minutes between syncs
+autorefresh = 5
+# Number of quick-syncs between autorefreshes. Quick-syncs do not update if the
+# only changes were to IMAP flags
+quick = 10
+
+[Repository gmail-local]
+# Currently, offlineimap only supports maildir and IMAP for local repositories.
+type = Maildir
+# Where should the mail be placed?
+localfolders = ~/Mail/gmail
+sep = /
+
+
+[Repository gmail-remote]
+# Remote repos can be IMAP or Gmail, the latter being a preconfigured IMAP.
+type = IMAP
+remotehost = 5.45.104.211
+remoteuser = gmail@stefan
+remotepassfile = ~/.keys/mail-enterprise-stefan
+cert_fingerprint = db6f810cf79f5e6abf8f5f1af0bc8b30cfd9236e
+ssl = yes
+keepalive = 60
+holdconnectionopen = yes
+
+###############################################################################
+#[Account gmail]
+## Identifier for the local repository; e.g. the maildir to be synced via IMAP.
+#localrepository = gmail-local
+## Identifier for the remote repository; i.e. the actual IMAP, usually non-local.
+#remoterepository = gmail-remote
+## Status cache. Default is plain, which eventually becomes huge and slow.
+#status_backend = sqlite
+
+## Minutes between syncs
+#autorefresh = 5
+## Number of quick-syncs between autorefreshes. Quick-syncs do not update if the
+## only changes were to IMAP flags
+#quick = 10
+
+#[Repository gmail-local]
+## Currently, offlineimap only supports maildir and IMAP for local repositories.
+#type = Maildir
+## Where should the mail be placed?
+#localfolders = ~/Mail/gmail
+
+#[Repository gmail-remote]
+## Remote repos can be IMAP or Gmail, the latter being a preconfigured IMAP.
+#type = IMAP
+#remotehost = enterprise-1701.noip.me
+#remoteuser = hackenbergste@gmail.com
+#remotepassfile = ~/.keys/mail-enterprise-stefan
+#ssl = yes
+#cert_fingerprint = 95b135a3e7e867516bc2bd071c007e150dbc3898
+##sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+#keepalive = 60
+#holdconnectionopen = yes

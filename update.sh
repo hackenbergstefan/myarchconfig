@@ -39,7 +39,9 @@ mygoodcopy(){
     if [[ -d $file ]] ; then
         file_nodot_dest=$(dirname $file_nodot)
     fi
-    rsync -au -r $file $file_nodot
+    ### copy the file
+    rsync -au -r $file $file_nodot_dest
+    ### write appropriate entry to install file
     cat <<EOF >> $install_file
 read -p "copy ${file} ? [Y/n]" -n 1 -r
 echo
@@ -88,12 +90,11 @@ mkdir -p $hostname
 pushd $hostname
 while read lin ; do
     # leave empty lines and comments out 
-    if ! ([[ $lin == "#*" ]] || [[ $lin == "^$" ]]) ; then
-        echo "mygoodcopy $lin"
+    if ! ([ -z "$lin" ] || [[ $lin =~ ^\#.* ]]) ; then
+        mygoodcopy $lin
     fi
 done < $contents
 popd
-
 
 
 echo "###############################################################"
