@@ -46,8 +46,8 @@ mygoodcopy(){
 read -p "copy ${file} ? [Y/n]" -n 1 -r
 echo
 if [[ \$REPLY =~ ^[Y|y]$ ]] ; then
-    echo "install -D -o $owner -g $group -m $perms "$hostname/$file_nodot" $file"
-    install -D -o $owner -g $group -m $perms "$hostname/$file_nodot" $file
+    echo "install -D -d -o $owner -g $group -m $perms "$hostname/$file_nodot" $file"
+    install -D -d -o $owner -g $group -m $perms "$hostname/$file_nodot" $file
 fi
 EOF
 }
