@@ -249,3 +249,11 @@ if [ -f etc/passwd ] || [ -d etc/passwd ] ; then
         install -D -d -o root -g root -m 644 "x240/etc/passwd" /etc/passwd
     fi
 fi
+if [ -f boot/syslinux/syslinux.cfg ] || [ -d boot/syslinux/syslinux.cfg ] ; then
+    read -p "copy /boot/syslinux/syslinux.cfg ? [Y/n]" -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Y|y]$ ]] ; then
+        echo "install -D -d -o root -g root -m 644 "x240/boot/syslinux/syslinux.cfg" /boot/syslinux/syslinux.cfg"
+        install -D -d -o root -g root -m 644 "x240/boot/syslinux/syslinux.cfg" /boot/syslinux/syslinux.cfg
+    fi
+fi

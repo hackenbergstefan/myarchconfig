@@ -47,3 +47,6 @@
 !/etc/fuse.conf
 !/etc/fstab
 !/etc/passwd
+
+#boot
+!/boot/syslinux/syslinux.cfg
