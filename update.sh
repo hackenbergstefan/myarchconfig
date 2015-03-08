@@ -49,7 +49,7 @@ mygoodcopy(){
     fi
     ### write appropriate entry to install file
     cat <<EOF >> $install_file
-if [ -f ${file_nodot} ] || [ -d ${file_nodot} ] ; then
+if [ -f "${hostname}/${file_nodot}" ] || [ -d "${hostname}/${file_nodot}" ] ; then
     read -p "copy ${file} ? [Y/n]" -n 1 -r
     echo
     if [[ \$REPLY =~ ^[Y|y]$ ]] ; then
