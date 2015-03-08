@@ -44,6 +44,9 @@ mygoodcopy(){
     fi
     ### copy the file
     rsync -au -r $file $file_nodot_dest
+    if ! [[ $? == 0 ]] ; then
+        sudo rsync -au -r $file $file_nodot_dest
+    fi
     ### write appropriate entry to install file
     cat <<EOF >> $install_file
 if [ -f ${file_nodot} ] || [ -d ${file_nodot} ] ; then
@@ -107,15 +110,16 @@ while read lin ; do
     fi
 done < $contents
 
+if [[ $1 == "git" ]] ; then
+    echo "###############################################################"
+    echo "update on github"
+    echo "###############################################################"
 
-echo "###############################################################"
-echo "update on github"
-echo "###############################################################"
-
-git add $gitfiles
-git rm --cached --ignore-unmatch -r $nogitfiles
-git commit -a -m "${hostname} aktualisiert"
-git push
+    git add $gitfiles
+    git rm --cached --ignore-unmatch -r $nogitfiles
+    git commit -a -m "${hostname} aktualisiert"
+    git push
+fi
 
 popd
 popd
