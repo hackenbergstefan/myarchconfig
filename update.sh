@@ -116,6 +116,7 @@ if [[ $1 == "git" ]] ; then
     echo "###############################################################"
 
     git add $gitfiles
+    git add "../$install_file"
     git rm --cached --ignore-unmatch -r $nogitfiles
     git commit -a -m "${hostname} aktualisiert"
     git push
