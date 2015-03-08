@@ -192,7 +192,7 @@ STOP_CHARGE_THRESH_BAT1=98
 
 # Set to 1 to disable use of tpacpi-bat on Sandy Bridge or newer Thinkpads
 # and force usage of tp-smapi instead
-#DISABLE_TPACPIBAT=1
+DISABLE_TPACPIBAT=1
 
 # ------------------------------------------------------------------------------
 # tlp-rdw - Parameters for the radio device wizard

@@ -41,8 +41,9 @@
 /etc/modprobe.d/blacklist.conf
 
 #security
-/etc/pam.d/passwd
-/etc/pam.d/system-auth
-/etc/security/pam_encfs.conf
-/etc/fuse.conf
-/etc/fstab
+!/etc/pam.d/passwd
+!/etc/pam.d/system-auth
+!/etc/security/pam_encfs.conf
+!/etc/fuse.conf
+!/etc/fstab
+!/etc/passwd

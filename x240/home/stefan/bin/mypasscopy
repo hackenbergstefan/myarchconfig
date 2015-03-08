@@ -1,0 +1,10 @@
+#!/bin/bash
+lincount=$(wc -l $1 | cut -f1 -d' ')
+if [[ $lincount == 1 ]] ; then
+    cat $1 | xclip -selection primary
+elif [[ $lincount == 2 ]] ; then
+    head -1 $1
+    echo -n $(cat $1 | awk 'BEGIN {FS=":"}; NR==2 {print $2}') | xclip -selection primary
+else
+    echo "NONE!"
+fi

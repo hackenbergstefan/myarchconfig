@@ -28,3 +28,7 @@
 "xbacklight +10"
     m:0x0 + c:233
     XF86MonBrightnessUp
+
+"/home/stefan/bin/toggleBacklight.sh"
+    m:0x0 + c:235
+    XF86Display

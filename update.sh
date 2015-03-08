@@ -1,5 +1,8 @@
 #!/bin/bash
 # Updates all given (dot)files for current host
+# The files or folders to be saved must be given line by line in a file called
+# "FILES_$(hostname)". Empty lines and bash comments are allowed. All lines
+# start with ! are copied but not added to git.
 # 
 # Written by Stefan Hackenberg
 
@@ -26,16 +29,16 @@ INSTALL_PREFIX="INSTALL_"
 #
 # $1 -- the file
 mygoodcopy(){
-    file=$(realpath $1)
-    owner=$(ls -ld $file | awk '{print $3}')
-    group=$(ls -ld $file | awk '{print $4}')
-    perms=$( stat --format=%a $file )
+    local file=$(realpath $1)
+    local owner=$(ls -ld $file | awk '{print $3}')
+    local group=$(ls -ld $file | awk '{print $4}')
+    local perms=$( stat --format=%a $file )
     echo "get $file"
     file_nodot=$(echo $file | sed "s/\/\./\/${DOT_REPLACEMENT}/g")
     file_nodot=${file_nodot#/}
     mkdir -p $(dirname $file_nodot)
     # if file is directory we must take the parent directory as destination
-    file_nodot_dest=$file_nodot
+    local file_nodot_dest=$file_nodot
     if [[ -d $file ]] ; then
         file_nodot_dest=$(dirname $file_nodot)
     fi
@@ -43,11 +46,13 @@ mygoodcopy(){
     rsync -au -r $file $file_nodot_dest
     ### write appropriate entry to install file
     cat <<EOF >> $install_file
-read -p "copy ${file} ? [Y/n]" -n 1 -r
-echo
-if [[ \$REPLY =~ ^[Y|y]$ ]] ; then
-    echo "install -D -d -o $owner -g $group -m $perms "$hostname/$file_nodot" $file"
-    install -D -d -o $owner -g $group -m $perms "$hostname/$file_nodot" $file
+if [ -f ${file_nodot} ] || [ -d ${file_nodot} ] ; then
+    read -p "copy ${file} ? [Y/n]" -n 1 -r
+    echo
+    if [[ \$REPLY =~ ^[Y|y]$ ]] ; then
+        echo "install -D -d -o $owner -g $group -m $perms "$hostname/$file_nodot" $file"
+        install -D -d -o $owner -g $group -m $perms "$hostname/$file_nodot" $file
+    fi
 fi
 EOF
 }
@@ -92,18 +97,25 @@ pushd $hostname
 while read lin ; do
     # leave empty lines and comments out 
     if ! ([ -z "$lin" ] || [[ $lin =~ ^\#.* ]]) ; then
-        mygoodcopy $lin
+        mygoodcopy ${lin#!}
+        # only add to git if line does not start with !
+        if ! [[ $lin =~ ^!.* ]] ; then 
+            gitfiles="$gitfiles $file_nodot"
+        else 
+            nogitfiles="$nogitfiles $file_nodot"
+        fi
     fi
 done < $contents
-popd
 
 
 echo "###############################################################"
 echo "update on github"
 echo "###############################################################"
 
-git add .
+git add $gitfiles
+git rm --cached --ignore-unmatch -r $nogitfiles
 git commit -a -m "${hostname} aktualisiert"
 git push
 
+popd
 popd
