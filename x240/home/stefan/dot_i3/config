@@ -128,10 +128,13 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+#password eval
+bindsym $mod+p exec "urxvtc -name passeval -e ~/bin/mypasskeyeval_2.sh"
+
 #############################################################################}}}
 
 ################################################################################
-## Workspaces ##################################################################
+## Workspaces and Assigns and window specifics #################################
 #############################################################################{{{
 # switch to workspace
 bindsym $mod+1 workspace number 1
@@ -159,18 +162,21 @@ bindsym $mod+Shift+0 move container to workspace 10
 
 
 # special workspaces
-bindsym XF86Tools workspace web
-bindsym XF86Search workspace ssh
-bindsym XF86LaunchA workspace mail
+bindsym $mod+F9 workspace web
+bindsym $mod+F10 workspace ssh
+bindsym $mod+F11  workspace mail
 
-bindsym Shift+XF86Tools move container to workspace web
-bindsym Shift+XF86Search move container to workspace ssh
-bindsym Shift+XF86LaunchA move container to workspace mail
+bindsym $mod+Shift+F9 move container to workspace web
+bindsym $mod+Shift+F10 move container to workspace ssh
+bindsym $mod+Shift+F11 move container to workspace mail
 
 
 # assignments
 assign [class="Chromium"] → web
 assign [class="mutt"] → mail
+
+# window specific
+for_window [instance="passeval"] floating enable
 
 #############################################################################}}}
 
